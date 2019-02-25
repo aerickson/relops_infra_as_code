@@ -22,6 +22,36 @@ resource "aws_iam_policy_attachment" "secretsmanager_to_influx" {
   policy_arn = "${aws_iam_policy.secretsmanager-influx.arn}"
 }
 
+/*
+resource "aws_iam_policy" "cloudwatch-influx" {
+  name        = "secretsmanager-influx"
+  description = "Allows writing to cloudwatch logs."
+  policy      = <<EOF
+{
+   "Version":"2012-10-17",
+   "Statement":[
+      {
+         "Sid":"",
+         "Effect":"Allow",
+         "Action":[
+            "logs:CreateLogStream",
+            "logs:PutLogEvents",
+            "logs:DescribeLogStreams"
+         ],
+         "Resource":"arn:aws:logs:us-west-2:*:*"
+      }
+   ]
+}
+EOF
+}
+
+resource "aws_iam_policy_attachment" "cloudwatch_to_influx" {
+  name       = "cloudwatch_to_influx"
+  roles      = ["${aws_iam_role.iam_for_lambda.name}"]
+  policy_arn = "${aws_iam_policy.cloudwatch-influx.arn}"
+}
+*/
+
 resource "aws_iam_role" "iam_for_lambda" {
   name = "iam_for_lambda"
 
